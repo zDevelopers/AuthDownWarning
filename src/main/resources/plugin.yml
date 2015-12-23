@@ -1,0 +1,5 @@
+name: AuthDownWarning
+description: Warns in-game players when the Mojang servers are down.
+main: 
+version: 1.0
+author: "Amaury Carrade"

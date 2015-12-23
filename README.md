@@ -1,0 +1,1 @@
+# Warns players when Mojang servers are down
