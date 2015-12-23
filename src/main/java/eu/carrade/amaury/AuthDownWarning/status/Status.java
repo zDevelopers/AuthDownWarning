@@ -29,41 +29,71 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL-B license and that you accept its terms.
  */
-package eu.carrade.amaury.AuthDownWarning;
+package eu.carrade.amaury.AuthDownWarning.status;
 
-import eu.carrade.amaury.AuthDownWarning.status.MojangStatus;
-import eu.carrade.amaury.AuthDownWarning.tasks.MojangStatusCheckTask;
-import fr.zcraft.zlib.core.ZPlugin;
-import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
 
-public class AuthDownWarning extends ZPlugin
+public enum Status
 {
-	private static AuthDownWarning instance;
+	/**
+	 * The service is running. No problem encountered.
+	 */
+	RUNNING(ChatColor.DARK_GREEN),
 
-	private MojangStatus status;
+	/**
+	 * The service is running but unstable: it may not work well.
+	 */
+	UNSTABLE(ChatColor.YELLOW),
 
-	@Override
-	public void onEnable()
+	/**
+	 * The service is down and cannot handle requests.
+	 */
+	DOWN(ChatColor.RED),
+
+	/**
+	 * The state of the service is unknown.
+	 */
+	UNKNOWN(ChatColor.GRAY);
+
+
+	private ChatColor color;
+
+	Status(ChatColor color)
 	{
-		instance = this;
+		this.color = color;
+	}
 
-		// Services
-		status = new MojangStatus();
-
-		// Tasks
-		Bukkit.getScheduler().runTaskTimerAsynchronously(AuthDownWarning.get(), new MojangStatusCheckTask(), 1l, Config.REFRESH_INTERVAL.get() * 20l);
+	/**
+	 * @return The color usually associated with this status.
+	 */
+	public ChatColor getColor()
+	{
+		return color;
 	}
 
 
-	public MojangStatus getStatus()
+	/**
+	 * Returns the status from the Mojang string in the JSON check.
+	 *
+	 * @param mojangStatus The Mojang status ("green", "yellow" or "red").
+	 * @return The associated status.
+	 */
+	public static Status fromMojang(String mojangStatus)
 	{
-		return status;
-	}
+		switch (mojangStatus.toLowerCase())
+		{
+			case "green":
+				return RUNNING;
 
+			case "yellow":
+				return UNSTABLE;
 
-	public static AuthDownWarning get()
-	{
-		return instance;
+			case "red":
+				return DOWN;
+
+			default:
+				return UNKNOWN;
+		}
 	}
 }

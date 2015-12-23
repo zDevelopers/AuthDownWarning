@@ -29,41 +29,16 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL-B license and that you accept its terms.
  */
-package eu.carrade.amaury.AuthDownWarning;
+package eu.carrade.amaury.AuthDownWarning.tasks;
 
-import eu.carrade.amaury.AuthDownWarning.status.MojangStatus;
-import eu.carrade.amaury.AuthDownWarning.tasks.MojangStatusCheckTask;
-import fr.zcraft.zlib.core.ZPlugin;
-import org.bukkit.Bukkit;
+import eu.carrade.amaury.AuthDownWarning.AuthDownWarning;
 
 
-public class AuthDownWarning extends ZPlugin
+public class MojangStatusCheckTask implements Runnable
 {
-	private static AuthDownWarning instance;
-
-	private MojangStatus status;
-
 	@Override
-	public void onEnable()
+	public void run()
 	{
-		instance = this;
-
-		// Services
-		status = new MojangStatus();
-
-		// Tasks
-		Bukkit.getScheduler().runTaskTimerAsynchronously(AuthDownWarning.get(), new MojangStatusCheckTask(), 1l, Config.REFRESH_INTERVAL.get() * 20l);
-	}
-
-
-	public MojangStatus getStatus()
-	{
-		return status;
-	}
-
-
-	public static AuthDownWarning get()
-	{
-		return instance;
+		AuthDownWarning.get().getStatus().updateStatus();
 	}
 }

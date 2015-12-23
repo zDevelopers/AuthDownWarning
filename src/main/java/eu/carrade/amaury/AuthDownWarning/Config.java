@@ -31,39 +31,13 @@
  */
 package eu.carrade.amaury.AuthDownWarning;
 
-import eu.carrade.amaury.AuthDownWarning.status.MojangStatus;
-import eu.carrade.amaury.AuthDownWarning.tasks.MojangStatusCheckTask;
-import fr.zcraft.zlib.core.ZPlugin;
-import org.bukkit.Bukkit;
+import fr.zcraft.zlib.components.configuration.ConfigurationItem;
 
 
-public class AuthDownWarning extends ZPlugin
+public final class Config
 {
-	private static AuthDownWarning instance;
+	public static ConfigurationItem<Integer> REFRESH_INTERVAL = ConfigurationItem.item("check_interval", 30);
+	public static ConfigurationItem<Integer> WARNING_INTERVAL = ConfigurationItem.item("warning_interval", 300);
 
-	private MojangStatus status;
-
-	@Override
-	public void onEnable()
-	{
-		instance = this;
-
-		// Services
-		status = new MojangStatus();
-
-		// Tasks
-		Bukkit.getScheduler().runTaskTimerAsynchronously(AuthDownWarning.get(), new MojangStatusCheckTask(), 1l, Config.REFRESH_INTERVAL.get() * 20l);
-	}
-
-
-	public MojangStatus getStatus()
-	{
-		return status;
-	}
-
-
-	public static AuthDownWarning get()
-	{
-		return instance;
-	}
+	public static ConfigurationItem<String> CHECK_SERVICE_URI = ConfigurationItem.item("check_uri", "https://status.mojang.com/check");
 }

@@ -29,41 +29,64 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL-B license and that you accept its terms.
  */
-package eu.carrade.amaury.AuthDownWarning;
+package eu.carrade.amaury.AuthDownWarning.status;
 
-import eu.carrade.amaury.AuthDownWarning.status.MojangStatus;
-import eu.carrade.amaury.AuthDownWarning.tasks.MojangStatusCheckTask;
-import fr.zcraft.zlib.core.ZPlugin;
-import org.bukkit.Bukkit;
-
-
-public class AuthDownWarning extends ZPlugin
+public class Service
 {
-	private static AuthDownWarning instance;
+	private String name;
+	private String address;
 
-	private MojangStatus status;
+	private Boolean warnIfDown;
 
-	@Override
-	public void onEnable()
+	private Status status = Status.UNKNOWN;
+
+	/**
+	 * @param name The service friendly name.
+	 * @param address The service address, as displayed in the Mojang JSON check.
+	 * @param warnIfDown true to warn players if this service is down or unstable.
+	 */
+	public Service(String name, String address, Boolean warnIfDown)
 	{
-		instance = this;
-
-		// Services
-		status = new MojangStatus();
-
-		// Tasks
-		Bukkit.getScheduler().runTaskTimerAsynchronously(AuthDownWarning.get(), new MojangStatusCheckTask(), 1l, Config.REFRESH_INTERVAL.get() * 20l);
+		this.name = name;
+		this.address = address;
+		this.warnIfDown = warnIfDown;
 	}
 
 
-	public MojangStatus getStatus()
+	public String getName()
+	{
+		return name;
+	}
+
+	public String getAddress()
+	{
+		return address;
+	}
+
+	public Status getStatus()
 	{
 		return status;
 	}
 
-
-	public static AuthDownWarning get()
+	public Boolean warnIfDown()
 	{
-		return instance;
+		return warnIfDown;
+	}
+
+
+	public void setStatus(Status status)
+	{
+		this.status = status;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Service{" +
+				"name='" + name + '\'' +
+				", address='" + address + '\'' +
+				", warnIfDown=" + warnIfDown +
+				", status=" + status +
+				'}';
 	}
 }

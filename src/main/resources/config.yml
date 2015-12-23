@@ -1,1 +1,25 @@
+# The number of seconds between two checks against the Mojang servers.
+check_interval: 30
 
+# The minimal number of seconds between two warning sent to the players for
+# the same kind of status.
+# Players will always be immediately notified if the status changes.
+warning_interval: 300
+
+
+# The URI called to check the servers status.
+#
+# It must return a JSON response following this format:
+# [
+#   {"minecraft.net": "green"},
+#   {"account.mojang.com": "green"},
+#   {"authserver.mojang.com": "green"},
+#   {"sessionserver.mojang.com": "green"},
+#   {"api.mojang.com": "green"},
+#   {"textures.minecraft.net": "green"}
+# ]
+# where the status are "green", "yellow", "red".
+# The list can contains other services; they whill be ignored.
+#
+# Advice: don't change this.
+check_uri: "https://status.mojang.com/check"
