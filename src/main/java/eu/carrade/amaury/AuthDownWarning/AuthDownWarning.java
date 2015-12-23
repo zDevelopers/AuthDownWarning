@@ -31,10 +31,12 @@
  */
 package eu.carrade.amaury.AuthDownWarning;
 
+import eu.carrade.amaury.AuthDownWarning.commands.MojangStatusCommand;
 import eu.carrade.amaury.AuthDownWarning.status.MojangStatus;
 import eu.carrade.amaury.AuthDownWarning.tasks.MojangStatusCheckTask;
 import fr.zcraft.zlib.core.ZPlugin;
 import org.bukkit.Bukkit;
+import org.bukkit.command.PluginCommand;
 
 
 public class AuthDownWarning extends ZPlugin
@@ -48,8 +50,18 @@ public class AuthDownWarning extends ZPlugin
 	{
 		instance = this;
 
+
 		// Services
 		status = new MojangStatus();
+
+
+		// Commands
+		final MojangStatusCommand statusExecutor = new MojangStatusCommand();
+		final PluginCommand       statusCommand  = getCommand("mojangstatus");
+
+		statusCommand.setExecutor(statusExecutor);
+		statusCommand.setTabCompleter(statusExecutor);
+
 
 		// Tasks
 		Bukkit.getScheduler().runTaskTimerAsynchronously(AuthDownWarning.get(), new MojangStatusCheckTask(), 1l, Config.REFRESH_INTERVAL.get() * 20l);

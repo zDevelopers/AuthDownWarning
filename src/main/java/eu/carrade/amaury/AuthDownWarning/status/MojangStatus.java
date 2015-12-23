@@ -43,10 +43,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -66,13 +68,13 @@ public class MojangStatus
 	{
 		CHECK_SERVICE_URI = Config.CHECK_SERVICE_URI.get();
 
-		registerService(new Service("Minecraft Website", "minecraft.net", false));
-		registerService(new Service("Mojang accounts website", "account.mojang.com", false));
-		registerService(new Service("Minecraft Skins", "textures.minecraft.net", false));
-		registerService(new Service("Public Mojang API", "api.mojang.com", false));
+		registerService(new Service("Authentication", "authserver.mojang.com", true));
+		registerService(new Service("Multiplayer Sessions", "sessionserver.mojang.com", true));
 
-		registerService(new Service("Authentication service", "authserver.mojang.com", true));
-		registerService(new Service("Multiplayer session service", "sessionserver.mojang.com", true));
+		registerService(new Service("Minecraft Website", "minecraft.net", false));
+		registerService(new Service("Mojang Accounts Website", "account.mojang.com", false));
+		registerService(new Service("Minecraft Skins", "textures.minecraft.net", false));
+		registerService(new Service("Mojang API", "api.mojang.com", false));
 	}
 
 
@@ -95,7 +97,24 @@ public class MojangStatus
 	 */
 	public Set<Service> getServices()
 	{
-		return ImmutableSet.copyOf(services.values());
+		Set<Service> sortedServices = new TreeSet<>(new Comparator<Service>() {
+			@Override
+			public int compare(Service firstOne, Service otherOne)
+			{
+				if (firstOne.warnIfDown() == otherOne.warnIfDown())
+					return firstOne.getName().compareToIgnoreCase(otherOne.getName());
+
+				else if (firstOne.warnIfDown())
+					return -1;
+
+				else
+					return 1;
+			}
+		});
+
+		sortedServices.addAll(services.values());
+
+		return ImmutableSet.copyOf(sortedServices);
 	}
 
 	/**

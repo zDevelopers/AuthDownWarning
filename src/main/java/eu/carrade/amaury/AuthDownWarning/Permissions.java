@@ -29,74 +29,28 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL-B license and that you accept its terms.
  */
-package eu.carrade.amaury.AuthDownWarning.status;
+package eu.carrade.amaury.AuthDownWarning;
 
-import java.util.Date;
+import org.bukkit.permissions.Permissible;
 
 
-public class Service
+public enum Permissions
 {
-	private String name;
-	private String address;
+	STATUS_VIEW("authdownwarning.status.view"),
+	STATUS_UPDATE("authdownwarning.status.update"),
+	WARNINGS_RECEIVE("authdownwarning.warnings.receive"),
 
-	private Boolean warnIfDown;
+	;
 
-	private Status status = Status.UNKNOWN;
-	private Long lastUpdate = -1l;
+	private String permission;
 
-	/**
-	 * @param name The service friendly name.
-	 * @param address The service address, as displayed in the Mojang JSON check.
-	 * @param warnIfDown true to warn players if this service is down or unstable.
-	 */
-	public Service(String name, String address, Boolean warnIfDown)
+	Permissions(String permission)
 	{
-		this.name = name;
-		this.address = address;
-		this.warnIfDown = warnIfDown;
+		this.permission = permission;
 	}
 
-
-	public String getName()
+	public boolean isGrantedTo(Permissible permissible)
 	{
-		return name;
-	}
-
-	public String getAddress()
-	{
-		return address;
-	}
-
-	public Status getStatus()
-	{
-		return status;
-	}
-
-	public Date getLastUpdateDate()
-	{
-		return new Date(lastUpdate);
-	}
-
-	public Boolean warnIfDown()
-	{
-		return warnIfDown;
-	}
-
-
-	public void setStatus(Status status)
-	{
-		this.status = status;
-		this.lastUpdate = System.currentTimeMillis();
-	}
-
-	@Override
-	public String toString()
-	{
-		return "Service{" +
-				"name='" + name + '\'' +
-				", address='" + address + '\'' +
-				", warnIfDown=" + warnIfDown +
-				", status=" + status +
-				'}';
+		return permissible.hasPermission(permission);
 	}
 }

@@ -29,74 +29,30 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL-B license and that you accept its terms.
  */
-package eu.carrade.amaury.AuthDownWarning.status;
+package eu.carrade.amaury.AuthDownWarning.utils;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 
-public class Service
+public final class DateUtils
 {
-	private String name;
-	private String address;
+	private final static DateFormat DATE_FORMATTER = DateFormat.getDateTimeInstance();
 
-	private Boolean warnIfDown;
-
-	private Status status = Status.UNKNOWN;
-	private Long lastUpdate = -1l;
-
-	/**
-	 * @param name The service friendly name.
-	 * @param address The service address, as displayed in the Mojang JSON check.
-	 * @param warnIfDown true to warn players if this service is down or unstable.
-	 */
-	public Service(String name, String address, Boolean warnIfDown)
+	public static String getRelativeTime(Date date)
 	{
-		this.name = name;
-		this.address = address;
-		this.warnIfDown = warnIfDown;
-	}
+		Long secondsDiff = (System.currentTimeMillis() - date.getTime()) / 1000;
 
+		if (secondsDiff < 60)
+			return secondsDiff + " seconds ago";
 
-	public String getName()
-	{
-		return name;
-	}
+		else if (secondsDiff < 3600)
+			return Math.rint(secondsDiff / 60d) + " minutes ago";
 
-	public String getAddress()
-	{
-		return address;
-	}
+		else if (secondsDiff < 86400)
+			return Math.rint(secondsDiff / 3600d) + " hours ago";
 
-	public Status getStatus()
-	{
-		return status;
-	}
-
-	public Date getLastUpdateDate()
-	{
-		return new Date(lastUpdate);
-	}
-
-	public Boolean warnIfDown()
-	{
-		return warnIfDown;
-	}
-
-
-	public void setStatus(Status status)
-	{
-		this.status = status;
-		this.lastUpdate = System.currentTimeMillis();
-	}
-
-	@Override
-	public String toString()
-	{
-		return "Service{" +
-				"name='" + name + '\'' +
-				", address='" + address + '\'' +
-				", warnIfDown=" + warnIfDown +
-				", status=" + status +
-				'}';
+		else
+			return DATE_FORMATTER.format(date);
 	}
 }

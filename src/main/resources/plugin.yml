@@ -3,3 +3,48 @@ description: Warns in-game players when the Mojang servers are down.
 main: eu.carrade.amaury.AuthDownWarning.AuthDownWarning
 version: 1.0
 author: "Amaury Carrade"
+
+commands:
+    mojangstatus:
+        description: Checks or update the Mojang services status
+        usage: /<command> [update]
+
+
+
+# Permissions section generated using http://amaury.carrade.eu/tools/generators/bukkit/permissions.html
+permissions:
+
+    # Permissions inheritance
+
+    authdownwarning.*:
+        default: op
+        children:
+            authdownwarning.status: true
+            authdownwarning.warnings: true
+
+    authdownwarning.status.*:
+        default: op
+        children:
+            authdownwarning.status.view: true
+            authdownwarning.status.update: true
+
+    authdownwarning.warnings.*:
+        default: op
+        children:
+            authdownwarning.warnings.receive: true
+
+
+
+    # Basic permissions
+
+    authdownwarning.status.view:
+        description: "Allows a player to see the results of the last check using /mojangstatus."
+        default: true
+
+    authdownwarning.status.update:
+        description: "Allows a player to force-update the Mojang services status with /mojangstatus update."
+        default: op
+
+    authdownwarning.warnings.receive:
+        description: "All players with this permission will receive the warnings if some of the Mojang services are down."
+        default: true
