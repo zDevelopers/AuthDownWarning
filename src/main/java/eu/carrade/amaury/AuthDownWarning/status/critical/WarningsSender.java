@@ -62,7 +62,10 @@ public class WarningsSender implements Listener
 	public void onCriticalStatusChange(AsyncCriticalMojangStatusChangedEvent ev)
 	{
 		if (warningTask != null)
+		{
 			warningTask.cancel();
+			warningTask = null;
+		}
 
 
 		if (ev.getNewStatus() == Status.RUNNING)
