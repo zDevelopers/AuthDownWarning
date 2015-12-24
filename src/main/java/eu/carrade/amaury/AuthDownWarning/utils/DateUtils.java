@@ -44,15 +44,22 @@ public final class DateUtils
 		Long secondsDiff = (System.currentTimeMillis() - date.getTime()) / 1000;
 
 		if (secondsDiff < 60)
-			return secondsDiff + " seconds ago";
-
+		{
+			return secondsDiff + " second" + (secondsDiff != 1 ? "s" : "") + " ago";
+		}
 		else if (secondsDiff < 3600)
-			return Math.rint(secondsDiff / 60d) + " minutes ago";
-
+		{
+			final int minutes = (int) Math.rint(secondsDiff / 60d);
+			return minutes + " minute" + (minutes != 1 ? "s" : "") + " ago";
+		}
 		else if (secondsDiff < 86400)
-			return Math.rint(secondsDiff / 3600d) + " hours ago";
-
+		{
+			final int hours = (int) Math.rint(secondsDiff / 3600d);
+			return hours + " hour" + (hours != 1 ? "s" : "") + " ago";
+		}
 		else
+		{
 			return DATE_FORMATTER.format(date);
+		}
 	}
 }
