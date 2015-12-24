@@ -1,10 +1,10 @@
 # The number of seconds between two checks against the Mojang servers.
-check_interval: 30
+check_interval: 90
 
 # The minimal number of seconds between two warning sent to the players for
 # the same kind of status.
 # Players will always be immediately notified if the status changes.
-warning_interval: 300
+warning_interval: 600
 
 
 # Set to true to display a list of the down or unstable services in the

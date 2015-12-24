@@ -36,8 +36,8 @@ import fr.zcraft.zlib.components.configuration.ConfigurationItem;
 
 public final class Config
 {
-	public static ConfigurationItem<Integer> REFRESH_INTERVAL = ConfigurationItem.item("check_interval", 30);
-	public static ConfigurationItem<Integer> WARNING_INTERVAL = ConfigurationItem.item("warning_interval", 300);
+	public static ConfigurationItem<Integer> REFRESH_INTERVAL = ConfigurationItem.item("check_interval", 90);
+	public static ConfigurationItem<Integer> WARNING_INTERVAL = ConfigurationItem.item("warning_interval", 600);
 
 	public static ConfigurationItem<Boolean> DISPLAY_SERVICES_DOWN = ConfigurationItem.item("display_services_down", false);
 
