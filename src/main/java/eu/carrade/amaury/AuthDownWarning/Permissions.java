@@ -49,6 +49,11 @@ public enum Permissions
 		this.permission = permission;
 	}
 
+	public String getPermission()
+	{
+		return permission;
+	}
+
 	public boolean isGrantedTo(Permissible permissible)
 	{
 		return permissible.hasPermission(permission);

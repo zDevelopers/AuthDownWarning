@@ -79,7 +79,7 @@ public class MojangStatusCommand implements CommandExecutor, TabCompleter
 			Status globalStatus = Status.RUNNING;
 			for (Service service : services)
 			{
-				if (service.getStatus() == Status.DOWN && service.warnIfDown())
+				if (service.getStatus() == Status.DOWN && service.isCritical())
 				{
 					globalStatus = Status.DOWN;
 					break;

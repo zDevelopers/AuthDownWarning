@@ -35,6 +35,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import eu.carrade.amaury.AuthDownWarning.AuthDownWarning;
 import eu.carrade.amaury.AuthDownWarning.Config;
 import fr.zcraft.zlib.tools.PluginLogger;
 
@@ -101,10 +102,10 @@ public class MojangStatus
 			@Override
 			public int compare(Service firstOne, Service otherOne)
 			{
-				if (firstOne.warnIfDown() == otherOne.warnIfDown())
+				if (firstOne.isCritical() == otherOne.isCritical())
 					return firstOne.getName().compareToIgnoreCase(otherOne.getName());
 
-				else if (firstOne.warnIfDown())
+				else if (firstOne.isCritical())
 					return -1;
 
 				else
@@ -120,15 +121,15 @@ public class MojangStatus
 	/**
 	 * @return An immutable set containing all the registered services down/unstable and with warning.
 	 */
-	public Set<Service> getDownServicesWithWarning()
+	public Set<Service> getCriticalServices()
 	{
-		ImmutableSet.Builder<Service> downServicesWithWarning = ImmutableSet.builder();
+		ImmutableSet.Builder<Service> criticalServices = ImmutableSet.builder();
 
 		for (Service service : services.values())
-			if (service.warnIfDown() && (service.getStatus() == Status.UNSTABLE || service.getStatus() == Status.DOWN))
-				downServicesWithWarning.add(service);
+			if (service.isCritical())
+				criticalServices.add(service);
 
-		return downServicesWithWarning.build();
+		return criticalServices.build();
 	}
 
 	/**
@@ -164,11 +165,14 @@ public class MojangStatus
 				if (!services.containsKey(serviceAddress))
 					continue;
 
-				services.get(serviceAddress).setStatus(Status.fromMojang(statusEntry.getValue().getAsString()));
+				final Service service = services.get(serviceAddress);
+				service.setStatus(Status.fromMojang(statusEntry.getValue().getAsString()));
 			}
 		}
 
 		lastPing = System.currentTimeMillis();
+
+		AuthDownWarning.get().getCriticalStatusChangeChecker().checkForChange();
 	}
 
 	/**

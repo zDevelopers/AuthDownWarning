@@ -29,74 +29,48 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL-B license and that you accept its terms.
  */
-package eu.carrade.amaury.AuthDownWarning.status;
+package eu.carrade.amaury.AuthDownWarning.status.critical;
 
-import java.util.Date;
+import eu.carrade.amaury.AuthDownWarning.AuthDownWarning;
+import eu.carrade.amaury.AuthDownWarning.events.AsyncCriticalMojangStatusChangedEvent;
+import eu.carrade.amaury.AuthDownWarning.status.Service;
+import eu.carrade.amaury.AuthDownWarning.status.Status;
+import org.bukkit.Bukkit;
+
+import java.util.Set;
 
 
-public class Service
+public class CriticalStatusChangeChecker
 {
-	private String name;
-	private String address;
+	private Status lastStatus = Status.UNKNOWN;
 
-	private Boolean critical;
 
-	private Status status = Status.UNKNOWN;
-	private Long lastUpdate = -1l;
-
-	/**
-	 * @param name The service friendly name.
-	 * @param address The service address, as displayed in the Mojang JSON check.
-	 * @param critical true to warn players if this service is down or unstable.
-	 */
-	public Service(String name, String address, Boolean critical)
+	public void checkForChange()
 	{
-		this.name = name;
-		this.address = address;
-		this.critical = critical;
-	}
+		Set<Service> services = AuthDownWarning.get().getStatus().getCriticalServices();
 
+		Status criticalStatus = Status.RUNNING;
 
-	public String getName()
-	{
-		return name;
-	}
+		for (Service service : services)
+		{
+			if (service.getStatus() == Status.DOWN)
+			{
+				criticalStatus = Status.DOWN;
+				break;
+			}
+			else if (service.getStatus() == Status.UNSTABLE)
+			{
+				criticalStatus = Status.UNSTABLE;
+			}
+		}
 
-	public String getAddress()
-	{
-		return address;
-	}
+		if (criticalStatus != lastStatus)
+		{
+			// The event is only called for a real status change.
+			if (lastStatus != Status.UNKNOWN)
+				Bukkit.getServer().getPluginManager().callEvent(new AsyncCriticalMojangStatusChangedEvent(lastStatus, criticalStatus));
 
-	public Status getStatus()
-	{
-		return status;
-	}
-
-	public Date getLastUpdateDate()
-	{
-		return new Date(lastUpdate);
-	}
-
-	public Boolean isCritical()
-	{
-		return critical;
-	}
-
-
-	public void setStatus(Status status)
-	{
-		this.status = status;
-		this.lastUpdate = System.currentTimeMillis();
-	}
-
-	@Override
-	public String toString()
-	{
-		return "Service{" +
-				"name='" + name + '\'' +
-				", address='" + address + '\'' +
-				", critical=" + critical +
-				", status=" + status +
-				'}';
+			lastStatus = criticalStatus;
+		}
 	}
 }

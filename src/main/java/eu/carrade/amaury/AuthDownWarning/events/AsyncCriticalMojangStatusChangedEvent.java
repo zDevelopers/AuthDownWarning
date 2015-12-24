@@ -29,74 +29,52 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL-B license and that you accept its terms.
  */
-package eu.carrade.amaury.AuthDownWarning.status;
-
-import java.util.Date;
+package eu.carrade.amaury.AuthDownWarning.events;
 
 
-public class Service
+import eu.carrade.amaury.AuthDownWarning.status.Status;
+import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
+
+
+/**
+ * Triggered when the status of the critical Mojang services changes.
+ */
+public class AsyncCriticalMojangStatusChangedEvent extends Event
 {
-	private String name;
-	private String address;
+	private static HandlerList handlers = new HandlerList();
 
-	private Boolean critical;
+	private Status oldStatus;
+	private Status newStatus;
 
-	private Status status = Status.UNKNOWN;
-	private Long lastUpdate = -1l;
 
-	/**
-	 * @param name The service friendly name.
-	 * @param address The service address, as displayed in the Mojang JSON check.
-	 * @param critical true to warn players if this service is down or unstable.
-	 */
-	public Service(String name, String address, Boolean critical)
+	public AsyncCriticalMojangStatusChangedEvent(Status oldStatus, Status newStatus)
 	{
-		this.name = name;
-		this.address = address;
-		this.critical = critical;
+		super(true);
+
+		this.oldStatus = oldStatus;
+		this.newStatus = newStatus;
 	}
 
-
-	public String getName()
+	public Status getOldStatus()
 	{
-		return name;
+		return oldStatus;
 	}
 
-	public String getAddress()
+	public Status getNewStatus()
 	{
-		return address;
+		return newStatus;
 	}
 
-	public Status getStatus()
-	{
-		return status;
-	}
-
-	public Date getLastUpdateDate()
-	{
-		return new Date(lastUpdate);
-	}
-
-	public Boolean isCritical()
-	{
-		return critical;
-	}
-
-
-	public void setStatus(Status status)
-	{
-		this.status = status;
-		this.lastUpdate = System.currentTimeMillis();
-	}
 
 	@Override
-	public String toString()
+	public HandlerList getHandlers()
 	{
-		return "Service{" +
-				"name='" + name + '\'' +
-				", address='" + address + '\'' +
-				", critical=" + critical +
-				", status=" + status +
-				'}';
+		return handlers;
+	}
+
+	public static HandlerList getHandlerList()
+	{
+		return handlers;
 	}
 }
