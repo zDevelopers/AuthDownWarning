@@ -91,16 +91,19 @@ public class WarningsSender implements Listener
 					String servicesDownNames = "";
 					Integer servicesDownCount = 0;
 
-					for (Service criticalService : AuthDownWarning.get().getStatus().getCriticalServices())
+					if (Config.DISPLAY_SERVICES_DOWN.get())
 					{
-						if (criticalService.getStatus() == criticalStatus)
+						for (Service criticalService : AuthDownWarning.get().getStatus().getCriticalServices())
 						{
-							servicesDownNames += criticalService.getName() + ", ";
-							servicesDownCount++;
+							if (criticalService.getStatus() == criticalStatus)
+							{
+								servicesDownNames += criticalService.getName() + ", ";
+								servicesDownCount++;
+							}
 						}
-					}
 
-					servicesDownNames = servicesDownNames.substring(0, servicesDownNames.length() - 2);  // Removes the last comma
+						servicesDownNames = servicesDownNames.substring(0, servicesDownNames.length() - 2);  // Removes the last comma
+					}
 
 
 					// Then we warn about this
@@ -108,7 +111,7 @@ public class WarningsSender implements Listener
 					broadcastWarning(
 							criticalStatus.getColor() + "" + ChatColor.BOLD + "Mojang servers are currently " + criticalStatus.name().toLowerCase() + ".",
 							criticalStatus.getColor() + "Don't log out: you might not be able to log in again.",
-							ChatColor.GRAY + "Service" + (servicesDownCount > 0 ? "s" : "") + " " + criticalStatus.name().toLowerCase() + ": " + servicesDownNames + "."
+							Config.DISPLAY_SERVICES_DOWN.get() ? ChatColor.GRAY + "Service" + (servicesDownCount > 0 ? "s" : "") + " " + criticalStatus.name().toLowerCase() + ": " + servicesDownNames + "." : ""
 					);
 				}
 			}, 1l, MINIMAL_WARNING_INTERVAL);
@@ -120,7 +123,8 @@ public class WarningsSender implements Listener
 		Bukkit.broadcast("", Permissions.WARNINGS_RECEIVE.getPermission());
 
 		for (String message : messages)
-			Bukkit.broadcast(message, Permissions.WARNINGS_RECEIVE.getPermission());
+			if (!message.isEmpty())
+				Bukkit.broadcast(message, Permissions.WARNINGS_RECEIVE.getPermission());
 
 		Bukkit.broadcast("", Permissions.WARNINGS_RECEIVE.getPermission());
 	}

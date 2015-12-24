@@ -39,5 +39,7 @@ public final class Config
 	public static ConfigurationItem<Integer> REFRESH_INTERVAL = ConfigurationItem.item("check_interval", 30);
 	public static ConfigurationItem<Integer> WARNING_INTERVAL = ConfigurationItem.item("warning_interval", 300);
 
+	public static ConfigurationItem<Boolean> DISPLAY_SERVICES_DOWN = ConfigurationItem.item("display_services_down", false);
+
 	public static ConfigurationItem<String> CHECK_SERVICE_URI = ConfigurationItem.item("check_uri", "https://status.mojang.com/check");
 }

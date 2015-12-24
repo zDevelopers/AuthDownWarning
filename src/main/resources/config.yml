@@ -7,6 +7,11 @@ check_interval: 30
 warning_interval: 300
 
 
+# Set to true to display a list of the down or unstable services in the
+# warning message, like this: http://raw.carrade.eu/s/1450919953.png
+display_services_down: false
+
+
 # The URI called to check the servers status.
 #
 # It must return a JSON response following this format:
