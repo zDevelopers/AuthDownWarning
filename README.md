@@ -6,9 +6,8 @@ A small Bukkit plugin to warn players when Mojang servers are down.
 
 When the authentification or sessions servers become down, a message like this one will be broadcasted.  
 ![Warning message if the authentification servers are down](http://raw.carrade.eu/s/1451071102.png)  
-A similar message will be displayed if the servers are unstable.
+A similar message will be displayed if the servers are unstable. These messages will be broadcasted every ten minutes (by default) until the servers status change.
 
-This message will be broadcasted every ten minutes (by default) until the servers status change.  
 ![“Fine again” message](http://raw.carrade.eu/s/1450919965.png)  
  
 
