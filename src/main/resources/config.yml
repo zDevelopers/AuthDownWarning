@@ -24,7 +24,7 @@ display_services_down: false
 #   {"textures.minecraft.net": "green"}
 # ]
 # where the status are "green", "yellow", "red".
-# The list can contains other services; they whill be ignored.
+# The list can contain other services; they will be ignored.
 #
 # Advice: don't change this.
 check_uri: "https://status.mojang.com/check"
