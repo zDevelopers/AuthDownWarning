@@ -31,13 +31,22 @@
  */
 package eu.carrade.amaury.AuthDownWarning.utils;
 
+import fr.zcraft.zlib.components.i18n.I;
+import fr.zcraft.zlib.components.i18n.I18n;
+
 import java.text.DateFormat;
 import java.util.Date;
 
 
 public final class DateUtils
 {
-	private final static DateFormat DATE_FORMATTER = DateFormat.getDateTimeInstance();
+	private static DateFormat DATE_FORMATTER = null;
+
+	static
+	{
+		DATE_FORMATTER = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, I18n.getPrimaryLocale());
+		if (DATE_FORMATTER == null) DATE_FORMATTER = DateFormat.getDateTimeInstance();
+	}
 
 	public static String getRelativeTime(Date date)
 	{
@@ -45,17 +54,17 @@ public final class DateUtils
 
 		if (secondsDiff < 60)
 		{
-			return secondsDiff + " second" + (secondsDiff != 1 ? "s" : "") + " ago";
+			return I.tn("{0} second ago", "{0} seconds ago", secondsDiff.intValue());
 		}
 		else if (secondsDiff < 3600)
 		{
 			final int minutes = (int) Math.rint(secondsDiff / 60d);
-			return minutes + " minute" + (minutes != 1 ? "s" : "") + " ago";
+			return I.tn("{0} minute ago", "{0} minutes ago", minutes);
 		}
 		else if (secondsDiff < 86400)
 		{
 			final int hours = (int) Math.rint(secondsDiff / 3600d);
-			return hours + " hour" + (hours != 1 ? "s" : "") + " ago";
+			return I.tn("{0} hour ago", "{0} hours ago", hours);
 		}
 		else
 		{

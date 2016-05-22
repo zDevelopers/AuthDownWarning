@@ -31,15 +31,22 @@
  */
 package eu.carrade.amaury.AuthDownWarning;
 
+import fr.zcraft.zlib.components.configuration.Configuration;
 import fr.zcraft.zlib.components.configuration.ConfigurationItem;
 
+import java.util.Locale;
 
-public final class Config
+import static fr.zcraft.zlib.components.configuration.ConfigurationItem.item;
+
+
+public final class Config extends Configuration
 {
-	public static ConfigurationItem<Integer> REFRESH_INTERVAL = ConfigurationItem.item("check_interval", 90);
-	public static ConfigurationItem<Integer> WARNING_INTERVAL = ConfigurationItem.item("warning_interval", 600);
+	public static ConfigurationItem<Locale> LOCALE = item("locale", Locale.class);
 
-	public static ConfigurationItem<Boolean> DISPLAY_SERVICES_DOWN = ConfigurationItem.item("display_services_down", false);
+	public static ConfigurationItem<Integer> REFRESH_INTERVAL = item("check_interval", 90);
+	public static ConfigurationItem<Integer> WARNING_INTERVAL = item("warning_interval", 600);
 
-	public static ConfigurationItem<String> CHECK_SERVICE_URI = ConfigurationItem.item("check_uri", "https://status.mojang.com/check");
+	public static ConfigurationItem<Boolean> DISPLAY_SERVICES_DOWN = item("display_services_down", false);
+
+	public static ConfigurationItem<String> CHECK_SERVICE_URI = item("check_uri", "https://status.mojang.com/check");
 }

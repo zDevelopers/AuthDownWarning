@@ -1,0 +1,148 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-22 02:44+0200\n"
+"PO-Revision-Date: 2016-05-22 02:55+0100\n"
+"Last-Translator: Amaury Carrade\n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.7.5\n"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/commands/MojangStatusCommand.java:66
+msgid "{ce}You are not allowed to view Mojang services status."
+msgstr "{ce}Vous n'avez pas le droit de voir les statuts des services de Mojang."
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/commands/MojangStatusCommand.java:67
+msgid "{gray}You can visit{white} https://help.mojang.com {gray}to see them."
+msgstr "{gray}Vous pouvez visiter{white} https://help.mojang.com {gray}pour les voir."
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/commands/MojangStatusCommand.java:97
+msgid "{gold}{bold}Mojang services status"
+msgstr "{gold}{bold}Statut des services de Mojang"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/commands/MojangStatusCommand.java:104
+msgid "{gray}Last update: {0}."
+msgstr "{gray}Dernière mise à jour : {0}."
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/commands/MojangStatusCommand.java:114
+msgid "{ce}You are not allowed to update Mojang services status."
+msgstr "{ce}Vous n'avez pas le droit de modifier les statuts des services de Mojang."
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/commands/MojangStatusCommand.java:118
+msgid "{cst}Updating Mojang services status..."
+msgstr "{cst}Mise à jour du statut des services..."
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/commands/MojangStatusCommand.java:125
+msgid "{cst}Updated."
+msgstr "{cst}Mis à jour."
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/commands/MojangStatusCommand.java:154
+msgid "Service unstable"
+msgstr "Service instable"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/commands/MojangStatusCommand.java:157
+msgid "Service down"
+msgstr "Service indisponible"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/commands/MojangStatusCommand.java:160
+msgid "Service status unknown"
+msgstr "Statut du service inconnu"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/MojangStatus.java:73
+msgid "Authentication"
+msgstr "Authentification"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/MojangStatus.java:74
+msgid "Multiplayer Sessions"
+msgstr "Sessions multi-joueur"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/MojangStatus.java:76
+msgid "Minecraft Website"
+msgstr "Site web de Minecraft"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/MojangStatus.java:77
+msgid "Mojang Accounts Website"
+msgstr "Site web des comptes Mojang"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/MojangStatus.java:78
+msgid "Minecraft Skins"
+msgstr "Service des skins"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/MojangStatus.java:79
+msgid "Mojang API"
+msgstr "API Mojang"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/Status.java:43
+msgid "RUNNING"
+msgstr "FONCTIONNELS"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/Status.java:48
+msgid "UNSTABLE"
+msgstr "INSTABLE"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/Status.java:53
+msgid "DOWN"
+msgstr "INTERROMPUS"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/Status.java:58
+msgid "UNKNOWN"
+msgstr "INCONNU"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/critical/WarningsSender.java:78
+msgid "{dark_green}{bold}Mojang servers are back online."
+msgstr "{dark_green}{bold}Les services de Mojang sont de retour."
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/critical/WarningsSender.java:118
+msgid "Mojang servers are currently unstable."
+msgstr "Les serveurs de Mojang sont actuellement instables."
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/critical/WarningsSender.java:119
+msgid "{gray}Unstable service: {0}"
+msgid_plural "{gray}Unstable services: {0}"
+msgstr[0] "{gray}Service instable : {0}"
+msgstr[1] "{gray}Services instables : {0}"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/critical/WarningsSender.java:123
+msgid "Mojang servers are currently down."
+msgstr "Les serveurs de Mojang sont actuellement indisponibles."
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/critical/WarningsSender.java:124
+msgid "{gray}Down service: {0}"
+msgid_plural "{gray}Down services: {0}"
+msgstr[0] "{gray}Service interrompu : {0}"
+msgstr[1] "{gray}Services interrompus : {0}"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/status/critical/WarningsSender.java:130
+msgid "Don't log out: you might not be able to log in again."
+msgstr "Ne vous déconnectez pas : vous pourriez être dans l'impossibilité de revenir."
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/utils/DateUtils.java:57
+#, java-format
+msgid "{0} second ago"
+msgid_plural "{0} seconds ago"
+msgstr[0] "il y a {0} seconde"
+msgstr[1] "il y a {0} secondes"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/utils/DateUtils.java:62
+#, java-format
+msgid "{0} minute ago"
+msgid_plural "{0} minutes ago"
+msgstr[0] "il y a {0} minute"
+msgstr[1] "il y a {0} minutes"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/utils/DateUtils.java:67
+#, java-format
+msgid "{0} hour ago"
+msgid_plural "{0} hours ago"
+msgstr[0] "il y a {0} heure"
+msgstr[1] "il y a {0} heures"

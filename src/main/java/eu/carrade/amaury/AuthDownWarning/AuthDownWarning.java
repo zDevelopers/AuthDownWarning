@@ -36,7 +36,7 @@ import eu.carrade.amaury.AuthDownWarning.status.MojangStatus;
 import eu.carrade.amaury.AuthDownWarning.status.critical.CriticalStatusChangeChecker;
 import eu.carrade.amaury.AuthDownWarning.status.critical.WarningsSender;
 import eu.carrade.amaury.AuthDownWarning.tasks.MojangStatusCheckTask;
-import fr.zcraft.zlib.components.configuration.Configuration;
+import fr.zcraft.zlib.components.i18n.I18n;
 import fr.zcraft.zlib.core.ZPlugin;
 import fr.zcraft.zlib.tools.runners.RunAsyncTask;
 import org.bukkit.command.PluginCommand;
@@ -54,10 +54,10 @@ public class AuthDownWarning extends ZPlugin
 	{
 		instance = this;
 
-
-		// Config
 		saveDefaultConfig();
-		Configuration.init(Config.class);
+		loadComponents(I18n.class, Config.class);
+
+		I18n.setPrimaryLocale(Config.LOCALE.get());
 
 
 		// Services

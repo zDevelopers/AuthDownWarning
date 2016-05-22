@@ -1,3 +1,7 @@
+# The language. Empty: system language.
+locale:
+
+
 # The number of seconds between two checks against the Mojang servers.
 check_interval: 90
 

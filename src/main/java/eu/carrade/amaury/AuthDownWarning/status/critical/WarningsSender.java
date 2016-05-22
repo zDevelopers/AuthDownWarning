@@ -37,6 +37,7 @@ import eu.carrade.amaury.AuthDownWarning.Permissions;
 import eu.carrade.amaury.AuthDownWarning.events.AsyncCriticalMojangStatusChangedEvent;
 import eu.carrade.amaury.AuthDownWarning.status.Service;
 import eu.carrade.amaury.AuthDownWarning.status.Status;
+import fr.zcraft.zlib.components.i18n.I;
 import fr.zcraft.zlib.tools.runners.RunTask;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -74,10 +75,7 @@ public class WarningsSender implements Listener
 				@Override
 				public void run()
 				{
-					broadcastWarning(
-							ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Mojang servers are back online.",
-							ChatColor.GREEN + "Everything is back to normal."
-					);
+					broadcastWarning(I.t("{dark_green}{bold}Mojang servers are back online."));
 				}
 			});
 		}
@@ -111,10 +109,26 @@ public class WarningsSender implements Listener
 
 					// Then we warn about this
 
+					String title = "";
+					String servicesDownLine = "";
+
+					switch (criticalStatus)
+					{
+						case UNSTABLE:
+							title = I.t("Mojang servers are currently unstable.");
+							servicesDownLine = I.tn("{gray}Unstable service: {0}", "{gray}Unstable services: {0}", servicesDownCount, servicesDownNames);
+							break;
+
+						case DOWN:
+							title = I.t("Mojang servers are currently down.");
+							servicesDownLine = I.tn("{gray}Down service: {0}", "{gray}Down services: {0}", servicesDownCount, servicesDownNames);
+							break;
+					}
+
 					broadcastWarning(
-							criticalStatus.getColor() + "" + ChatColor.BOLD + "Mojang servers are currently " + criticalStatus.name().toLowerCase() + ".",
-							criticalStatus.getColor() + "Don't log out: you might not be able to log in again.",
-							Config.DISPLAY_SERVICES_DOWN.get() ? ChatColor.GRAY + "Service" + (servicesDownCount > 0 ? "s" : "") + " " + criticalStatus.name().toLowerCase() + ": " + servicesDownNames + "." : ""
+							criticalStatus.getColor() + "" + ChatColor.BOLD + title,
+							criticalStatus.getColor() + I.t("Don't log out: you might not be able to log in again."),
+							Config.DISPLAY_SERVICES_DOWN.get() ? servicesDownLine : ""
 					);
 				}
 			}, 1l, MINIMAL_WARNING_INTERVAL);

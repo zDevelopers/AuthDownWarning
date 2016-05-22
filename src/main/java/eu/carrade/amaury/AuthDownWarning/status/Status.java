@@ -31,6 +31,7 @@
  */
 package eu.carrade.amaury.AuthDownWarning.status;
 
+import fr.zcraft.zlib.components.i18n.I;
 import org.bukkit.ChatColor;
 
 
@@ -39,29 +40,31 @@ public enum Status
 	/**
 	 * The service is running. No problem encountered.
 	 */
-	RUNNING(ChatColor.DARK_GREEN),
+	RUNNING(ChatColor.DARK_GREEN, I.t("RUNNING")),
 
 	/**
 	 * The service is running but unstable: it may not work well.
 	 */
-	UNSTABLE(ChatColor.YELLOW),
+	UNSTABLE(ChatColor.YELLOW, I.t("UNSTABLE")),
 
 	/**
 	 * The service is down and cannot handle requests.
 	 */
-	DOWN(ChatColor.RED),
+	DOWN(ChatColor.RED, I.t("DOWN")),
 
 	/**
 	 * The state of the service is unknown.
 	 */
-	UNKNOWN(ChatColor.GRAY);
+	UNKNOWN(ChatColor.GRAY, I.t("UNKNOWN"));
 
 
 	private ChatColor color;
+	private final String localizedTag;
 
-	Status(ChatColor color)
+	Status(ChatColor color, String localizedTag)
 	{
 		this.color = color;
+		this.localizedTag = localizedTag;
 	}
 
 	/**
@@ -70,6 +73,14 @@ public enum Status
 	public ChatColor getColor()
 	{
 		return color;
+	}
+
+	/**
+	 * @return The localized tag to use (all-caps status word)
+	 */
+	public String getLocalizedTag()
+	{
+		return localizedTag;
 	}
 
 

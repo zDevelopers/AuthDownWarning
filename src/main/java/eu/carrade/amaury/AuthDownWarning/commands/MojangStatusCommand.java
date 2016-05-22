@@ -36,6 +36,7 @@ import eu.carrade.amaury.AuthDownWarning.Permissions;
 import eu.carrade.amaury.AuthDownWarning.status.Service;
 import eu.carrade.amaury.AuthDownWarning.status.Status;
 import eu.carrade.amaury.AuthDownWarning.utils.DateUtils;
+import fr.zcraft.zlib.components.i18n.I;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -62,8 +63,8 @@ public class MojangStatusCommand implements CommandExecutor, TabCompleter
 		{
 			if (!Permissions.STATUS_VIEW.isGrantedTo(sender))
 			{
-				sender.sendMessage(ChatColor.RED + "You are not allowed to view Mojang services status.");
-				sender.sendMessage(ChatColor.GRAY + "You can visit" + ChatColor.WHITE + " https://help.mojang.com " + ChatColor.GRAY + "to see them.");
+				sender.sendMessage(I.t("{ce}You are not allowed to view Mojang services status."));
+				sender.sendMessage(I.t("{gray}You can visit{white} https://help.mojang.com {gray}to see them."));
 				return true;
 			}
 
@@ -93,14 +94,14 @@ public class MojangStatusCommand implements CommandExecutor, TabCompleter
 			// Display
 
 			if (sender instanceof Player) sender.sendMessage("");
-			sender.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Mojang services status" + STATUS_SEPARATOR + globalStatus.getColor() + globalStatus.name());
+			sender.sendMessage(I.t("{gold}{bold}Mojang services status") + STATUS_SEPARATOR + globalStatus.getColor() + globalStatus.getLocalizedTag());
 
 			for (Service service : services)
 			{
 				sender.sendMessage(generateStatusLine(service));
 			}
 
-			sender.sendMessage(ChatColor.GRAY + "Last update: " + DateUtils.getRelativeTime(AuthDownWarning.get().getStatus().getLastPingDate()) + ".");
+			sender.sendMessage(I.t("{gray}Last update: {0}.", DateUtils.getRelativeTime(AuthDownWarning.get().getStatus().getLastPingDate())));
 			if (sender instanceof Player) sender.sendMessage("");
 
 			return true;
@@ -110,18 +111,18 @@ public class MojangStatusCommand implements CommandExecutor, TabCompleter
 		{
 			if (!Permissions.STATUS_UPDATE.isGrantedTo(sender))
 			{
-				sender.sendMessage(ChatColor.RED + "You are not allowed to update Mojang services status.");
+				sender.sendMessage(I.t("{ce}You are not allowed to update Mojang services status."));
 				return true;
 			}
 
-			sender.sendMessage(ChatColor.GRAY + "Updating Mojang services status...");
+			sender.sendMessage(I.t("{cst}Updating Mojang services status..."));
 
 			Bukkit.getScheduler().runTaskAsynchronously(AuthDownWarning.get(), new Runnable() {
 				@Override
 				public void run()
 				{
 					AuthDownWarning.get().getStatus().updateStatus();
-					sender.sendMessage(ChatColor.GRAY + "Updated.");
+					sender.sendMessage(I.t("{cst}Updated."));
 				}
 			});
 
@@ -132,7 +133,7 @@ public class MojangStatusCommand implements CommandExecutor, TabCompleter
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args)
 	{
-		if (args.length == 1 && "update".startsWith(args[0].toLowerCase()))
+		if (args.length == 1 && "update".startsWith(args[0].toLowerCase()) && Permissions.STATUS_UPDATE.isGrantedTo(sender))
 			return Collections.singletonList("update");
 
 		return null;
@@ -144,7 +145,22 @@ public class MojangStatusCommand implements CommandExecutor, TabCompleter
 		String line = service.getStatus().getColor() + STATUS_PREFIX + ChatColor.WHITE + service.getName();
 
 		if (service.getStatus() != Status.RUNNING)
-			line += STATUS_SEPARATOR + service.getStatus().getColor() + "Service " + service.getStatus().toString().toLowerCase();
+		{
+			line += STATUS_SEPARATOR + service.getStatus().getColor();
+
+			switch (service.getStatus())
+			{
+				case UNSTABLE:
+					line += I.t("Service unstable");
+					break;
+				case DOWN:
+					line += I.t("Service down");
+					break;
+				case UNKNOWN:
+					line += I.t("Service status unknown");
+					break;
+			}
+		}
 
 		return line;
 	}

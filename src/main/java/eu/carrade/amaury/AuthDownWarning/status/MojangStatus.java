@@ -37,6 +37,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import eu.carrade.amaury.AuthDownWarning.AuthDownWarning;
 import eu.carrade.amaury.AuthDownWarning.Config;
+import fr.zcraft.zlib.components.i18n.I;
 import fr.zcraft.zlib.tools.PluginLogger;
 
 import java.io.BufferedReader;
@@ -69,13 +70,13 @@ public class MojangStatus
 	{
 		CHECK_SERVICE_URI = Config.CHECK_SERVICE_URI.get();
 
-		registerService(new Service("Authentication", "authserver.mojang.com", true));
-		registerService(new Service("Multiplayer Sessions", "sessionserver.mojang.com", true));
+		registerService(new Service(I.t("Authentication"), "authserver.mojang.com", true));
+		registerService(new Service(I.t("Multiplayer Sessions"), "sessionserver.mojang.com", true));
 
-		registerService(new Service("Minecraft Website", "minecraft.net", false));
-		registerService(new Service("Mojang Accounts Website", "account.mojang.com", false));
-		registerService(new Service("Minecraft Skins", "textures.minecraft.net", false));
-		registerService(new Service("Mojang API", "api.mojang.com", false));
+		registerService(new Service(I.t("Minecraft Website"), "minecraft.net", false));
+		registerService(new Service(I.t("Mojang Accounts Website"), "account.mojang.com", false));
+		registerService(new Service(I.t("Minecraft Skins"), "textures.minecraft.net", false));
+		registerService(new Service(I.t("Mojang API"), "api.mojang.com", false));
 	}
 
 
