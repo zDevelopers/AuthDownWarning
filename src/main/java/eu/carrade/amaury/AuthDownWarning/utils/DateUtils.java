@@ -35,19 +35,12 @@ import fr.zcraft.zlib.components.i18n.I;
 import fr.zcraft.zlib.components.i18n.I18n;
 
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
 public final class DateUtils
 {
-	private static DateFormat DATE_FORMATTER = null;
-
-	static
-	{
-		DATE_FORMATTER = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, I18n.getPrimaryLocale());
-		if (DATE_FORMATTER == null) DATE_FORMATTER = DateFormat.getDateTimeInstance();
-	}
-
 	public static String getRelativeTime(Date date)
 	{
 		Long secondsDiff = (System.currentTimeMillis() - date.getTime()) / 1000;
@@ -68,7 +61,21 @@ public final class DateUtils
 		}
 		else
 		{
-			return DATE_FORMATTER.format(date);
+			try
+			{
+				DateFormat formatter;
+				try { formatter = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, I18n.getPrimaryLocale()); }
+				catch (Exception e) { formatter = DateFormat.getDateTimeInstance(); }
+
+				return formatter.format(date);
+			}
+			catch (Exception e)
+			{
+				Calendar cal = Calendar.getInstance(I18n.getPrimaryLocale());
+				cal.setTime(date);
+
+				return I.t("{0}/{1}/{2} at {3}:{4}", cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR), cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
+			}
 		}
 	}
 }

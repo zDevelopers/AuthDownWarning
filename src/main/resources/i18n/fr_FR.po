@@ -126,23 +126,28 @@ msgstr[1] "{gray}Services interrompus : {0}"
 msgid "Don't log out: you might not be able to log in again."
 msgstr "Ne vous déconnectez pas : vous pourriez être dans l'impossibilité de revenir."
 
-#: src/main/java/eu/carrade/amaury/AuthDownWarning/utils/DateUtils.java:57
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/utils/DateUtils.java:50
 #, java-format
 msgid "{0} second ago"
 msgid_plural "{0} seconds ago"
 msgstr[0] "il y a {0} seconde"
 msgstr[1] "il y a {0} secondes"
 
-#: src/main/java/eu/carrade/amaury/AuthDownWarning/utils/DateUtils.java:62
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/utils/DateUtils.java:55
 #, java-format
 msgid "{0} minute ago"
 msgid_plural "{0} minutes ago"
 msgstr[0] "il y a {0} minute"
 msgstr[1] "il y a {0} minutes"
 
-#: src/main/java/eu/carrade/amaury/AuthDownWarning/utils/DateUtils.java:67
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/utils/DateUtils.java:60
 #, java-format
 msgid "{0} hour ago"
 msgid_plural "{0} hours ago"
 msgstr[0] "il y a {0} heure"
 msgstr[1] "il y a {0} heures"
+
+#: src/main/java/eu/carrade/amaury/AuthDownWarning/utils/DateUtils.java:77
+#, java-format
+msgid "{0}/{1}/{2} at {3}:{4}"
+msgstr "le {0}/{1}/{2} à {3}:{4}"
