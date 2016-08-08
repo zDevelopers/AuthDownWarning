@@ -99,8 +99,8 @@ msgid "UNKNOWN"
 msgstr "INCONNU"
 
 #: src/main/java/eu/carrade/amaury/AuthDownWarning/status/critical/WarningsSender.java:78
-msgid "{dark_green}{bold}Mojang servers are back online."
-msgstr "{dark_green}{bold}Les services de Mojang sont de retour."
+msgid "{darkgreen}{bold}Mojang servers are back online."
+msgstr "{darkgreen}{bold}Les services de Mojang sont de retour."
 
 #: src/main/java/eu/carrade/amaury/AuthDownWarning/status/critical/WarningsSender.java:118
 msgid "Mojang servers are currently unstable."

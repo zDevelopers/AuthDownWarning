@@ -75,7 +75,7 @@ public class WarningsSender implements Listener
 				@Override
 				public void run()
 				{
-					broadcastWarning(I.t("{dark_green}{bold}Mojang servers are back online."));
+					broadcastWarning(I.t("{darkgreen}{bold}Mojang servers are back online."));
 				}
 			});
 		}
