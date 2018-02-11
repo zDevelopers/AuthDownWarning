@@ -190,7 +190,8 @@ public class MojangStatus
 		}
 		catch (IOException e)
 		{
-			PluginLogger.warning("An error occurred while contacting Mojang status service at " + CHECK_SERVICE_URI, e);
+			PluginLogger.warning("An error occurred while contacting Mojang status service at {0}", CHECK_SERVICE_URI);
+			PluginLogger.warning("{0}: {1}", e.getClass().getCanonicalName(), e.getMessage());
 			return null;
 		}
 	}
